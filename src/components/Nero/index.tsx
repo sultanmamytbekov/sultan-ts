@@ -20,6 +20,7 @@ interface IArray {
   width: string;
 }
 // const savedTasks = JSON.parse(localStorage.getItem("mode"))
+// const savedTasks = JSON.parse(localStorage.getItem("mode"))
 
 const Hero = () => {
 
