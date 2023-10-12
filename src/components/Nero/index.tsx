@@ -7,28 +7,23 @@ import { useState } from "react";
 import uniqid from "uniqid";
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill } from "react-icons/bs";
-// interface ITask {
-//   tasks:IArray
-// }
 interface IArray {
   id: any;
   title: string;
   title1: string;
   title2: string;
-  one: any;
+  one: string;
   color: string;
   width: string;
 }
-// const savedTasks = JSON.parse(localStorage.getItem("mode"))
-// const savedTasks = JSON.parse(localStorage.getItem("mode"))
+
+interface ITask {}
 
 const Hero = () => {
-
   const [tasks, setTasks] = useState<IArray[]>([]);
   const [value, setValue] = useState("");
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
-  const [num, setNum] = useState(-1);
   const [num1, setNum1] = useState(0);
   const [none, setNone] = useState(false);
   const [num2, setNum2] = useState(0);
@@ -39,16 +34,16 @@ const Hero = () => {
     setValue("");
     setValue1("");
     setValue2("");
-    setNum(-1);
     setNum1(0);
     setNone(false);
     setNum2(0);
-    // setNum3(0);
   };
   function getValue() {
     setValue("");
     setValue1("");
     setValue2("");
+    setNum3(0);
+    setNum2(0);
   }
   let imges = img;
   let width = "50px";
@@ -88,18 +83,24 @@ const Hero = () => {
         one: imges,
         color: color,
         width: width,
+        // test:'',
       };
       setTasks([...tasks, newTask]);
-    }else{
-      alert('заролните пеле')
+    } else {
+      alert("заролните все пеле...");
     }
   };
-  console.log(num);
-  
+  let { title }: any = tasks;
+
+  console.log(title);
+
   return (
     <div id="hero">
       <div className="container">
-        <div style={{background:dark ? '' : 'black' , transition:'1s'}} className="hero">
+        <div
+          style={{ background: dark ? "" : "black", transition: "1s" }}
+          className="hero"
+        >
           <div className="hero--text">
             <h1 style={{ paddingTop: "80px" }}>Checkout</h1>
             <h2>€ 300,00</h2>
@@ -131,47 +132,36 @@ const Hero = () => {
                 <h4>05/34</h4>
               </div>
             </div>
-            {
-                tasks.slice(num, num + 1).map((el) => (
-                  <>
-                    <div
-                      style={{
-                        background: none ? el.color : "",
-                        borderRadius: "15px",
-                      }}
-                      className="hero--text__block1"
-                    >
-                      <img
-                        style={{
-                          marginLeft: num1 === 3 ? "-1px" : "",
-                          display: none ? "block" : "none",
-                        }}
-                        width={el.width}
-                        src={el.one}
-                        alt=""
-                      />
-                      <h1>{el.title1.split(" ").join(" - ")}</h1>
-                      <div>
-                        <p>Name</p>
-                        <p>Valid Till</p>
-                      </div>
-                      <div>
-                        <h4>{el.title.toUpperCase()}</h4>
-                        <h4>{el.title2.slice(0, 5).split(" ").join("/")}</h4>
-                      </div>
-                    </div>
-                  </>
-                ))
-            }
-            {/* <h1>{propusk ? value1.split(' ').join(' - ') : ''}</h1>
-                 <div>
-                 <p>{propusk ? value.length !== 0 ? 'Name': '' : ''}</p>
-                 <p>{propusk ? value2.length !== 0 ? 'Valid Till': '' : ''}</p> 
-               </div>
-               <div>
-                 <h4>{propusk ? value : ''}</h4>
-               <h4>{propusk ? value2 : ''}</h4></div> */}
-
+            {tasks.slice(tasks.length - 1, tasks.length).map((el) => (
+              <>
+                <div
+                  style={{
+                    background: none ? el.color : "",
+                    borderRadius: "15px",
+                  }}
+                  className="hero--text__block1"
+                >
+                  <img
+                    style={{
+                      marginLeft: num1 === 3 ? "-1px" : "",
+                      display: none ? "block" : "none",
+                    }}
+                    width={el.width}
+                    src={el.one}
+                    alt=""
+                  />
+                  <h1>{el.title1.split(" ").join(" - ")}</h1>
+                  <div>
+                    <p>Name</p>
+                    <p>Valid Till</p>
+                  </div>
+                  <div>
+                    <h4>{el.title.toUpperCase()}</h4>
+                    <h4>{el.title2.slice(0, 5).split(" ").join("/")}</h4>
+                  </div>
+                </div>
+              </>
+            ))}
             <button
               onClick={() => {
                 remove();
@@ -204,11 +194,11 @@ const Hero = () => {
                 <div>
                   <p>Expiry date</p>
                   <input
-                  onKeyDown={(k) => {
-                    if (k.key === "Enter") {
-                     addTask()
-                    }
-                  }}
+                    onKeyDown={(k) => {
+                      if (k.key === "Enter") {
+                        addTask();
+                      }
+                    }}
                     value={value2}
                     onChange={(e) => setValue2(e.target.value)}
                     type="text"
@@ -323,18 +313,42 @@ const Hero = () => {
                 }}
               >
                 <h3>Enter details</h3>
-                <MdDarkMode  onClick={() => setDark(false)} style={{fontSize:"35px" , display:dark ? 'block' : 'none' , color:"#f90"}}/>
-                <BsFillSunFill  onClick={() => setDark(true)} style={{fontSize:"35px" ,  display:dark ? 'none' : 'block' , color:"#f90"}}/>
+                <MdDarkMode
+                  onClick={() => setDark(false)}
+                  style={{
+                    fontSize: "35px",
+                    display: dark ? "block" : "none",
+                    color: "#f90",
+                  }}
+                />
+                <BsFillSunFill
+                  onClick={() => setDark(true)}
+                  style={{
+                    fontSize: "35px",
+                    display: dark ? "none" : "block",
+                    color: "#f90",
+                  }}
+                />
               </div>
             </div>
             <button
               onClick={() => {
-                if (value.length > 0 && value1.length > 0 && value2.length > 0){
-                setNum(num + 1);
-                  addTask();
-                   getValue();
+                if (
+                  value.length > 0 &&
+                  value1.length > 0 &&
+                  value2.length > 0
+                ) {
+                  if (value.length < 3) {
+                    alert("длина Name должна быть не менше чем 3 буквы");
+                  } else if (value1.length !== 19) {
+                    alert("длина Card number должна быть ровна 19 цыфер");
+                  } else if (value2.length !== 5) {
+                    alert("длина Expiry date должна быть ровна 5 цыфер");
+                  } else {
+                    getValue();
+                    addTask();
+                  }
                 }
-               
                 setNone(true);
               }}
             >
